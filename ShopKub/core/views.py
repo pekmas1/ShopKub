@@ -1,7 +1,14 @@
 from django.shortcuts import render
+from item.models import Category, Item
 
 def index(request):
-    return render(request, "core/index.html")
+    items = Item.objects.filter(is_sold=False)[:6]
+    categories = Category.objects.all()
+
+    return render(request, "core/index.html", {
+        "catagories": categories,
+        "items": items
+    })
 
 def contact(request):
     return render(request, "core/contact.html")
