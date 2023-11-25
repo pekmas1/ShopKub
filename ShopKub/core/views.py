@@ -6,7 +6,7 @@ def index(request):
     categories = Category.objects.all()
 
     return render(request, "core/index.html", {
-        "catagories": categories,
+        "categories": categories,
         "items": items
     })
 
