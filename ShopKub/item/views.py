@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
-from .models import Item
+from django.db.models import Q
+from .models import Item, Category
 from .forms import NewItemForm, EditItemForm
 
 def detail(request, pk):
@@ -43,3 +44,26 @@ def edit(request, pk):
     else:
         form = EditItemForm(instance=item)
     return render(request, 'item/form.html', {"form":form, "title": "Edit Item"})
+
+def items(request):
+    items = Item.objects.filter(is_sold=False)
+    return render(request, 'item/items.html', {'items': items})
+
+def items(request):
+    query = request.GET.get('query', '')
+    category_id = request.GET.get('category', 0)
+    categories = Category.objects.all()
+    items = Item.objects.filter(is_sold=False)
+
+    if query:
+        items = items.filter(Q(name__icontains=query) | Q(description__icontains=query))
+
+    if category_id:
+        items = items.filter(category_id=category_id)
+
+    return render(request, 'item/items.html', {
+        'items': items,
+        'query': query,
+        'categories': categories,
+        'category_id' : int(category_id)
+})
