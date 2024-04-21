@@ -22,6 +22,15 @@
             {% endfor %}
         </ul>
         <hr class="my-6">
+        <p class="font-semibold">Seller</p>
+        <ul>
+            {% for user in users %}
+            <li class="py-2 px-2 round-xl {% if user_id == user.id %} bg-gray-200 {% endif %}" >
+                <a href="{% url 'item:items' %}?query={{query}}&user={{user.id}}">{{user.username}}</a>
+            </li>
+            {% endfor %}
+        </ul>
+        <hr class="my-6">
         <a href="{% url 'item:items'%}" class="mt-2 py-4 px-8 inline-block bg-yellow-500 text-lg rounded-xl text-white"> Clear filter </a>
 
     </div>
@@ -29,7 +38,7 @@
         {% for item in items %}
             <a href="{% url 'item:detail' item.id %}">
                 <div>
-                    <img src="{{item.image.url}}" class="rounded-xl">
+                    <img src="{{item.image.url}}" class="rounded-xl object-cover h-48">
                 </div>
                 <div class="p-6 bg-white rounded-b-xl">
                     <h2 class="text-2xl"> {{item.name}} </h2>

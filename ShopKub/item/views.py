@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from .models import Item, Category
 from .forms import NewItemForm, EditItemForm
+from django.contrib.auth.models import User
 
 def detail(request, pk):
     item = get_object_or_404(Item, pk=pk)
@@ -46,24 +47,27 @@ def edit(request, pk):
     return render(request, 'item/form.html', {"form":form, "title": "Edit Item"})
 
 def items(request):
-    items = Item.objects.filter(is_sold=False)
-    return render(request, 'item/items.html', {'items': items})
-
-def items(request):
     query = request.GET.get('query', '')
     category_id = request.GET.get('category', 0)
     categories = Category.objects.all()
     items = Item.objects.filter(is_sold=False)
+    users = User.objects.all()
+    user_id = request.GET.get('user', 0)
 
     if query:
         items = items.filter(Q(name__icontains=query) | Q(description__icontains=query))
 
     if category_id:
         items = items.filter(category_id=category_id)
+    
+    if user_id:
+        items = items.filter(created_by=user_id)
 
     return render(request, 'item/items.html', {
         'items': items,
         'query': query,
         'categories': categories,
-        'category_id' : int(category_id)
+        'category_id': int(category_id),
+        'users': users,
+        'user_id': int(user_id)
 })

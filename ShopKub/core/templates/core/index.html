@@ -9,7 +9,7 @@
             {% for item in items %}
             <a href="{% url 'item:detail' item.id %}">
                 <div>
-                    <img src="{{item.image.url}}" class="rounded-xl">
+                    <img src="{{item.image.url}}" class="rounded-xl object-cover h-48">
                 </div>
                 <div class="p-6 bg-white rounded-b-xl">
                     <h2 class="text-2xl"> {{item.name}} </h2>
