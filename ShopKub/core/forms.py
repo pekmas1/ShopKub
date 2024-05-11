@@ -16,10 +16,10 @@ class LoginForm(AuthenticationForm):
 class SignupForm(UserCreationForm):
     class Meta:
         model = User
-        fields = ('username', 'email', 'password1', 'password2')
+        fields = ('username', 'email', 'password1', 'password2', 'first_name', 'last_name')
 
     username = forms.CharField(widget=forms.TextInput(attrs={
-        'placeholder' : 'Your usernmae' ,
+        'placeholder' : 'Your username' ,
         'class':'w-full py-4 px-6 rounded-xl'
     }))
     email = forms.CharField(widget=forms.TextInput(attrs={
@@ -32,5 +32,13 @@ class SignupForm(UserCreationForm):
     }))
     password2 = forms.CharField(widget=forms.PasswordInput(attrs={
         'placeholder' : 'Repeat password' ,
+        'class':'w-full py-4 px-6 rounded-xl'
+    }))
+    first_name = forms.CharField(widget=forms.TextInput(attrs={
+        'placeholder' : 'Your First Name' ,
+        'class':'w-full py-4 px-6 rounded-xl'
+    }))
+    last_name = forms.CharField(widget=forms.TextInput(attrs={
+        'placeholder' : 'Your Last Name' ,
         'class':'w-full py-4 px-6 rounded-xl'
     }))

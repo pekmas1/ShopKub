@@ -6,33 +6,62 @@
 
 <div class="w=1/2 my-6 mx-auto bg-gray-100 rounded-xl p-6">
     <h1 class="mb-6 text-3xl">Sign Up</h1>
-    <form method="post", action=".">
+    <form method="post" action="." enctype="multipart/form-data">
         {% csrf_token %}
         
         <div class="mb-3">
             <label class="inline-block mb-2">Username</label><br>
-            {{form.username}}
+            {{core_form.username}}
         </div>
         <div class="mb-3">
             <label class="inline-block mb-2">Email</label><br>
-            {{form.email}}
+            {{core_form.email}}
         </div>
         <div class="mb-3">
             <label class="inline-block mb-2">Password</label><br>
-            {{form.password1}}
+            {{core_form.password1}}
         </div>
         <div class="mb-3">
             <label class="inline-block mb-2">Repeat password</label><br>
-            {{form.password2}}
+            {{core_form.password2}}
+        </div>
+        <div class="mb-3">
+            <label class="inline-block mb-2">Firstname</label><br>
+            {{core_form.first_name}}
+        </div>
+        <div class="mb-3">
+            <label class="inline-block mb-2">Lastname</label><br>
+            {{core_form.last_name}}
+        </div>
+        <div class="mb-3">
+            <label class="inline-block mb-2">Address</label><br>
+            {{profile_form.address}}
+        </div>
+        <div class="mb-3">
+            <label class="inline-block mb-2">Telephone number</label><br>
+            {{profile_form.tel_number}}
+        </div>
+        <div class="mb-3">
+            <label class="inline-block mb-2">Profile picture</label><br>
+            {{profile_form.profile_picture}}
         </div>
 
-        {% if form.errors or form.non_field_errors %}
+        {% if core_form.errors or core_form.non_field_errors %}
             <div class="mb-3 p-6 bg-red-100 rounded-xl">
-                {% for field in form %}
+                {% for field in core_form %}
                     {{field.errors}}
                 {% endfor %}
 
-                {{ form.non_field_errors}}
+                {{ core_form.non_field_errors}}
+            </div>
+        {% endif %}
+        {% if profile_form.errors or profile_form.non_field_errors %}
+            <div class="mb-3 p-6 bg-red-100 rounded-xl">
+                {% for field in profile_form %}
+                    {{field.errors}}
+                {% endfor %}
+
+                {{ profile_form.non_field_errors}}
             </div>
         {% endif %}
     <button class="py-4 px-8 text-lg bg-teal-500 hover:bg-teal-700 rounded-xl text-white">Submit</button>
